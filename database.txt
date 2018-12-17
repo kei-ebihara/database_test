@@ -14,7 +14,13 @@
 5-3 select * from items order by price desc;
 5-4 select AVG(price) from items;
 5-5 select * from items where description like '詰合せ';
-5-6 
+5-6 select c.name
+    -> from categories as c
+    -> inner join
+    -> items as i
+    -> on c.id = i.category_id
+    -> where i.price >= 7000
+    -> ;
 6-1 update items set price = +500 where price >= 7000;
 7-1 delete from items where price = 4000;
 8-1 drop table items;
