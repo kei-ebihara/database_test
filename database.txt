@@ -1,7 +1,15 @@
 1. mysql -u root
 2. create database ruby_camp;
 3. use ruby_camp;
-4-1. create table items (id int, name varchar(31), price int, category_id int, description varchar(1002));
+4-1. create table items (
+  id int NOT NULL AUTO_INCREMENT, 
+  name varchar(31) NOT NULL, 
+  price int NOT NULL, 
+  category_id int NOT NULL,
+   description varchar(1002) NOT NULL,
+   PRIMARY KEY (id),
+   INDEX category_id_index(category_id)
+   );
 4-2. desc items;
 4-3 create table categories(
     -> id int NOT NULL AUTO_INCREMENT,
@@ -14,14 +22,15 @@
 5-3 select * from items order by price desc;
 5-4 select AVG(price) from items;
 5-5 select * from items where description like '詰合せ';
-5-6 select c.name
+5-6 select c.name,count(i.id) as number_of_items
     -> from categories as c
-    -> inner join
-    -> items as i
-    -> on c.id = i.category_id
+    -> left join as items i
+    -> on
+    -> c.id = i.category_id
     -> where i.price >= 7000
+    -> group by c.name
     -> ;
-6-1 update items set price = +500 where price >= 7000;
+6-1 update items set price = price + 500 where price >= 7000;
 7-1 delete from items where price = 4000;
 8-1 drop table items;
 8-2 drop table categories;
